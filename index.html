@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Junaid Jameel | AI Engineer</title>
+<meta name="description" content="Junaid Jameel, AI Engineer building agentic AI systems, real-time voice agents and production RAG.">
+<meta property="og:title" content="Junaid Jameel | AI Engineer">
+<meta property="og:description" content="Agentic AI systems, real-time voice agents and production RAG.">
+<meta property="og:image" content="https://avatars.githubusercontent.com/u/64707476?v=4">
+<link rel="icon" href="https://avatars.githubusercontent.com/u/64707476?s=64&v=4">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #fafaf9; --surface: #ffffff; --text: #1c1917; --muted: #57534e; --faint: #a8a29e;
+  --border: #e7e5e4; --accent: #0f766e; --accent-soft: #ccfbf1; --chip: #f5f5f4;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0c0a09; --surface: #1c1917; --text: #f5f5f4; --muted: #a8a29e; --faint: #78716c;
+    --border: #292524; --accent: #2dd4bf; --accent-soft: #134e4a; --chip: #292524;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0c0a09; --surface: #1c1917; --text: #f5f5f4; --muted: #a8a29e; --faint: #78716c;
+  --border: #292524; --accent: #2dd4bf; --accent-soft: #134e4a; --chip: #292524;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font: 16px/1.65 Inter, system-ui, sans-serif; background: var(--bg); color: var(--text); -webkit-font-smoothing: antialiased; }
+a { color: inherit; }
+.wrap { max-width: 880px; margin: 0 auto; padding: 0 20px; }
+
+nav { position: sticky; top: 0; z-index: 10; background: color-mix(in srgb, var(--bg) 85%, transparent); backdrop-filter: blur(8px); border-bottom: 1px solid var(--border); }
+nav .wrap { display: flex; align-items: center; justify-content: space-between; height: 60px; }
+nav .brand { font-weight: 700; text-decoration: none; letter-spacing: -0.01em; }
+nav ul { display: flex; gap: 22px; list-style: none; align-items: center; }
+nav ul a { text-decoration: none; color: var(--muted); font-size: 14px; font-weight: 500; }
+nav ul a:hover { color: var(--text); }
+#theme { background: none; border: 1px solid var(--border); color: var(--muted); border-radius: 8px; width: 34px; height: 34px; cursor: pointer; display: grid; place-items: center; }
+@media (max-width: 640px) { nav ul li.hide-sm { display: none; } }
+
+header.hero { padding: 88px 0 64px; display: grid; grid-template-columns: 1fr auto; gap: 40px; align-items: center; }
+.hero img { width: 148px; height: 148px; border-radius: 50%; border: 1px solid var(--border); }
+.hero .kicker { font: 500 13px/1 "JetBrains Mono", monospace; color: var(--accent); letter-spacing: 0.04em; text-transform: uppercase; }
+.hero h1 { font-size: clamp(36px, 6vw, 52px); line-height: 1.1; letter-spacing: -0.03em; margin: 14px 0 16px; }
+.hero p.lead { font-size: 18px; color: var(--muted); max-width: 560px; }
+.cta { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px; }
+.btn { display: inline-flex; align-items: center; gap: 8px; padding: 10px 16px; border-radius: 10px; border: 1px solid var(--border); text-decoration: none; font-size: 14px; font-weight: 600; background: var(--surface); }
+.btn.primary { background: var(--accent); border-color: var(--accent); color: var(--bg); }
+.btn:hover { transform: translateY(-1px); }
+.btn svg { width: 16px; height: 16px; fill: currentColor; }
+@media (max-width: 640px) { header.hero { grid-template-columns: 1fr; padding-top: 48px; } .hero img { width: 104px; height: 104px; order: -1; } }
+
+section { padding: 56px 0; border-top: 1px solid var(--border); }
+section h2 { font-size: 13px; font-family: "JetBrains Mono", monospace; text-transform: uppercase; letter-spacing: 0.08em; color: var(--faint); font-weight: 500; margin-bottom: 28px; }
+section > .wrap > p { color: var(--muted); max-width: 680px; margin-bottom: 14px; }
+
+.timeline { display: grid; gap: 28px; }
+.item { display: grid; grid-template-columns: 160px 1fr; gap: 24px; }
+.item .when { color: var(--faint); font-size: 14px; padding-top: 2px; }
+.item h3 { font-size: 17px; letter-spacing: -0.01em; }
+.item .org { color: var(--muted); font-size: 14px; margin-bottom: 8px; }
+.item ul { padding-left: 18px; color: var(--muted); }
+.item li { margin: 4px 0; }
+@media (max-width: 640px) { .item { grid-template-columns: 1fr; gap: 4px; } }
+
+.research { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 26px; }
+.research h3 { font-size: 19px; letter-spacing: -0.01em; margin-bottom: 10px; }
+.research p { color: var(--muted); }
+.metric { display: flex; gap: 28px; margin: 18px 0; flex-wrap: wrap; }
+.metric div { font: 600 28px/1 Inter; letter-spacing: -0.02em; }
+.metric span { display: block; font: 500 12px/1.4 "JetBrains Mono", monospace; color: var(--faint); margin-top: 6px; text-transform: uppercase; }
+
+.grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+@media (max-width: 640px) { .grid { grid-template-columns: 1fr; } }
+.card { display: flex; flex-direction: column; background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 22px; text-decoration: none; transition: border-color .15s, transform .15s; }
+.card:hover { border-color: var(--accent); transform: translateY(-2px); }
+.card .top { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+.card h3 { font-size: 16px; letter-spacing: -0.01em; }
+.card .stars { font: 500 12px "JetBrains Mono", monospace; color: var(--faint); white-space: nowrap; }
+.card p { color: var(--muted); font-size: 14.5px; margin: 8px 0 16px; flex: 1; }
+.tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.tag { font: 500 12px/1 "JetBrains Mono", monospace; background: var(--chip); color: var(--muted); padding: 6px 8px; border-radius: 6px; }
+.card .badge { font: 600 11px/1 Inter; color: var(--accent); background: var(--accent-soft); padding: 4px 7px; border-radius: 999px; margin-left: 8px; vertical-align: middle; }
+.more { margin-top: 22px; font-size: 14px; }
+.more a { color: var(--accent); font-weight: 600; text-decoration: none; }
+
+.skills { display: grid; gap: 18px; }
+.skills .row { display: grid; grid-template-columns: 160px 1fr; gap: 24px; }
+.skills .label { color: var(--faint); font-size: 14px; padding-top: 4px; }
+@media (max-width: 640px) { .skills .row { grid-template-columns: 1fr; gap: 8px; } }
+
+footer { border-top: 1px solid var(--border); padding: 56px 0 72px; }
+footer h2 { font-size: clamp(26px, 4vw, 34px); letter-spacing: -0.02em; margin-bottom: 10px; }
+footer p { color: var(--muted); margin-bottom: 22px; }
+footer small { display: block; margin-top: 48px; color: var(--faint); font-size: 13px; }
+</style>
+</head>
+<body>
+<nav>
+  <div class="wrap">
+    <a class="brand" href="#">Junaid Jameel</a>
+    <ul>
+      <li class="hide-sm"><a href="#experience">Experience</a></li>
+      <li class="hide-sm"><a href="#research">Research</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><button id="theme" aria-label="Toggle dark mode"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.39 5.39 0 0 1-4.4 2.26 5.4 5.4 0 0 1-3.14-9.8c-.44-.06-.9-.1-1.36-.1z"/></svg></button></li>
+    </ul>
+  </div>
+</nav>
+
+<main class="wrap">
+  <header class="hero">
+    <div>
+      <div class="kicker">AI Engineer</div>
+      <h1>I build AI systems that talk, reason and cite their sources.</h1>
+      <p class="lead">Agentic AI platforms, real-time speech-to-speech voice agents and production RAG, from research prototype to deployed API.</p>
+      <div class="cta">
+        <a class="btn primary" href="#projects">View projects</a>
+        <a class="btn" href="https://github.com/Junaidjameel773" target="_blank" rel="noopener"><svg viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>GitHub</a>
+        <a class="btn" href="https://www.linkedin.com/in/junaid-jameel" target="_blank" rel="noopener"><svg viewBox="0 0 16 16"><path d="M0 1.15C0 .52.52 0 1.17 0h13.66C15.48 0 16 .52 16 1.15v13.7c0 .63-.52 1.15-1.17 1.15H1.17C.52 16 0 15.48 0 14.85zm4.94 12.24V6.17H2.54v7.22zM3.74 5.18c.84 0 1.36-.55 1.36-1.25-.02-.71-.52-1.25-1.34-1.25S2.4 3.22 2.4 3.93c0 .7.52 1.25 1.33 1.25zm4.91 8.21V9.36c0-.22.02-.43.08-.59.17-.43.57-.88 1.23-.88.87 0 1.21.66 1.21 1.63v3.87h2.4V9.25c0-2.22-1.18-3.25-2.76-3.25-1.27 0-1.84.7-2.16 1.19V6.17h-2.4c.03.68 0 7.22 0 7.22z"/></svg>LinkedIn</a>
+      </div>
+    </div>
+    <img src="https://avatars.githubusercontent.com/u/64707476?v=4" alt="Junaid Jameel">
+  </header>
+
+  <section id="about">
+    <div class="wrap" style="padding:0">
+      <h2>About</h2>
+      <p>I'm an AI engineer focused on systems that hold up in production: voice agents that answer in real time, multi-tenant agent platforms, and retrieval pipelines that show exactly where each answer came from.</p>
+      <p>Alongside engineering work I do applied ML research. My MS in AI thesis uses multi-modal deep learning on satellite imagery to estimate tropical cyclone intensity. Right now I'm going deeper into MCP servers, multi-agent orchestration, and evaluation and observability for LLM apps.</p>
+    </div>
+  </section>
+
+  <section id="experience">
+    <div class="wrap" style="padding:0">
+      <h2>Experience</h2>
+      <div class="timeline">
+        <div class="item">
+          <div class="when">Present</div>
+          <div>
+            <h3>AI Engineer</h3>
+            <div class="org">Agentic AI and voice products</div>
+            <ul>
+              <li>Real-time speech-to-speech voice agents on OpenAI Realtime and Gemini Live.</li>
+              <li>Multi-tenant AI agent platforms with agentic RAG and tool-calling LLMs.</li>
+              <li>FastAPI backends and deployment of LLM applications.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="item">
+          <div class="when">Education</div>
+          <div>
+            <h3>MS in Artificial Intelligence <span style="color:var(--faint);font-weight:500;font-size:14px">(in progress)</span></h3>
+            <div class="org">Thesis: multi-modal CNN-LSTM for tropical cyclone intensity estimation</div>
+          </div>
+        </div>
+        <div class="item">
+          <div class="when">Education</div>
+          <div>
+            <h3>BS in Computer Science</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="research">
+    <div class="wrap" style="padding:0">
+      <h2>Research</h2>
+      <a class="research" href="https://github.com/Junaidjameel773/cyclone-intensity-nio" target="_blank" rel="noopener" style="display:block;text-decoration:none">
+        <h3>Tropical cyclone intensity estimation in the North Indian Ocean</h3>
+        <p>In the Arabian Sea and Bay of Bengal no aircraft flies into the storm, so satellite imagery is often the only view of its core. This 2.1M-parameter CNN-LSTM with cross-attention reads 12 hours of infrared frames plus storm position and motion to predict wind speed. Pre-training on 14,302 frames from 264 Atlantic and Pacific storms, then fine-tuning locally, fixed the model's blind spot on severe cyclones.</p>
+        <div class="metric">
+          <div>22.79 → 12.15 kt<span>test RMSE with transfer</span></div>
+          <div>−42.5 → −7.2 kt<span>Category 3+ bias</span></div>
+        </div>
+        <div class="tags"><span class="tag">PyTorch</span><span class="tag">CNN-LSTM</span><span class="tag">cross-attention</span><span class="tag">satellite imagery</span></div>
+      </a>
+    </div>
+  </section>
+
+  <section id="projects">
+    <div class="wrap" style="padding:0">
+      <h2>Projects</h2>
+      <div class="grid" id="project-grid"></div>
+      <div class="more"><a href="https://github.com/Junaidjameel773?tab=repositories" target="_blank" rel="noopener">All repositories on GitHub →</a></div>
+    </div>
+  </section>
+
+  <section id="skills">
+    <div class="wrap" style="padding:0">
+      <h2>Skills</h2>
+      <div class="skills">
+        <div class="row"><div class="label">LLMs, agents, RAG</div><div class="tags"><span class="tag">OpenAI</span><span class="tag">Gemini</span><span class="tag">Groq</span><span class="tag">Ollama</span><span class="tag">LangChain</span><span class="tag">LangGraph</span><span class="tag">LlamaIndex</span><span class="tag">MCP</span><span class="tag">ChromaDB</span><span class="tag">FAISS</span><span class="tag">Pinecone</span><span class="tag">Hugging Face</span></div></div>
+        <div class="row"><div class="label">Voice AI</div><div class="tags"><span class="tag">OpenAI Realtime</span><span class="tag">Gemini Live</span><span class="tag">Whisper</span><span class="tag">Deepgram</span><span class="tag">ElevenLabs</span><span class="tag">LiveKit</span><span class="tag">Twilio</span></div></div>
+        <div class="row"><div class="label">ML and data</div><div class="tags"><span class="tag">PyTorch</span><span class="tag">TensorFlow</span><span class="tag">scikit-learn</span><span class="tag">Pandas</span><span class="tag">NumPy</span><span class="tag">Jupyter</span><span class="tag">Plotly</span><span class="tag">Power BI</span></div></div>
+        <div class="row"><div class="label">Backend</div><div class="tags"><span class="tag">Python</span><span class="tag">FastAPI</span><span class="tag">TypeScript</span><span class="tag">Node.js</span><span class="tag">Streamlit</span><span class="tag">PostgreSQL</span><span class="tag">MongoDB</span><span class="tag">Supabase</span></div></div>
+        <div class="row"><div class="label">DevOps</div><div class="tags"><span class="tag">Docker</span><span class="tag">GitHub Actions</span><span class="tag">GitLab CI</span><span class="tag">Nginx</span><span class="tag">Linux</span><span class="tag">Cloudflare</span><span class="tag">Vercel</span></div></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer id="contact">
+  <div class="wrap">
+    <h2>Let's build something.</h2>
+    <p>Open to collaborations on voice AI, agentic RAG and open-source MCP tools.</p>
+    <div class="cta">
+      <a class="btn primary" href="mailto:junaidjameel773@gmail.com">junaidjameel773@gmail.com</a>
+      <a class="btn" href="https://www.linkedin.com/in/junaid-jameel" target="_blank" rel="noopener">LinkedIn</a>
+      <a class="btn" href="https://github.com/Junaidjameel773" target="_blank" rel="noopener">GitHub</a>
+    </div>
+    <small>© <span id="year"></span> Junaid Jameel</small>
+  </div>
+</footer>
+
+<script>
+// Featured projects first (curated text), then any newer public repo appears automatically.
+const FEATURED = [
+  { repo: "citerag", title: "citerag", desc: "Self-hostable RAG API that answers questions over your documents with exact, verifiable citations. Hybrid search, streaming and pluggable LLMs.", tags: ["FastAPI", "ChromaDB", "RAG", "SSE"] },
+  { repo: "yt-learn", title: "yt-learn", desc: "Turns YouTube videos and whole playlists into summaries, quizzes, flashcards and study notes.", tags: ["Python", "LLMs", "YouTube API"] },
+  { repo: "AI-Ticket-Agent", title: "AI Ticket Agent", desc: "Support ticketing with zero-shot classification, sentiment-driven priority and RAG-drafted replies.", tags: ["FastAPI", "Streamlit", "ChromaDB", "Groq"] },
+  { repo: "AI-Powered-Web-Crawler-and-Content-Formatter", title: "AI Web Crawler", desc: "Async crawler that extracts internal links and turns raw pages into clean Markdown with Gemini.", tags: ["asyncio", "Gemini"] },
+  { repo: "YouTube-Channel-Analytics-Pipeline", title: "YouTube Analytics Pipeline", desc: "Data pipeline that extracts, processes and stores YouTube channel metadata.", tags: ["Python", "Data engineering"] },
+  { repo: "YouTube-Video-Summarizer", title: "YouTube Video Summarizer", desc: "Paste a YouTube link, get structured notes from the transcript.", tags: ["Streamlit", "Gemini"] },
+];
+const SKIP = new Set(["Junaidjameel773", "junaidjameel773.github.io", "contribution-test", "saylanihomepage773", "cyclone-intensity-nio"]);
+const NEW_DAYS = 30;
+const grid = document.getElementById("project-grid");
+const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+
+function card(p, info) {
+  const isNew = info && (Date.now() - new Date(info.created_at)) / 864e5 < NEW_DAYS;
+  const stars = info ? `★ ${info.stargazers_count}` : "";
+  return `<a class="card" href="https://github.com/Junaidjameel773/${esc(p.repo)}" target="_blank" rel="noopener">
+    <div class="top"><h3>${esc(p.title)}${isNew ? '<span class="badge">New</span>' : ""}</h3><span class="stars">${stars}</span></div>
+    <p>${esc(p.desc)}</p>
+    <div class="tags">${p.tags.map(t => `<span class="tag">${esc(t)}</span>`).join("")}</div></a>`;
+}
+
+grid.innerHTML = FEATURED.map(p => card(p)).join("");
+fetch("https://api.github.com/users/Junaidjameel773/repos?per_page=100&sort=created")
+  .then(r => r.ok ? r.json() : Promise.reject())
+  .then(repos => {
+    const byName = Object.fromEntries(repos.map(r => [r.name, r]));
+    const extra = repos
+      .filter(r => !r.fork && !SKIP.has(r.name) && !FEATURED.some(f => f.repo === r.name) && r.description)
+      .filter(r => (Date.now() - new Date(r.created_at)) / 864e5 < 120)
+      .map(r => ({ repo: r.name, title: r.name, desc: r.description, tags: (r.topics || []).slice(0, 4) }));
+    grid.innerHTML = [...extra, ...FEATURED].map(p => card(p, byName[p.repo])).join("");
+  })
+  .catch(() => {}); // ponytail: API down or rate-limited, the curated cards stay as they are
+
+document.getElementById("year").textContent = new Date().getFullYear();
+const root = document.documentElement, btn = document.getElementById("theme");
+try { const t = localStorage.getItem("theme"); if (t) root.dataset.theme = t; } catch {}
+btn.onclick = () => {
+  const dark = root.dataset.theme ? root.dataset.theme === "dark" : matchMedia("(prefers-color-scheme: dark)").matches;
+  root.dataset.theme = dark ? "light" : "dark";
+  try { localStorage.setItem("theme", root.dataset.theme); } catch {}
+};
+</script>
+</body>
+</html>
