@@ -11,6 +11,12 @@
 <meta property="og:image" content="https://junaidjameel.me/assets/orb.webp">
 <meta name="theme-color" content="#05070A">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><path d='M16 1l14 8v14l-14 8-14-8V9z' fill='%232DD4BF'/><text x='16' y='21' font-family='monospace' font-size='12' font-weight='700' text-anchor='middle' fill='%2305070A'>JJ</text></svg>">
+<script>
+/* motion: saved choice wins; otherwise OS "reduce motion" gets a lighter mode instead of a dead page */
+(() => { let m = null; try { m = localStorage.getItem("motion"); } catch {}
+  if (!["full","lite","off"].includes(m)) m = matchMedia("(prefers-reduced-motion: reduce)").matches ? "lite" : "full";
+  window.MOTION = m; document.documentElement.classList.add("motion-" + m); })();
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
@@ -393,10 +399,13 @@ footer a{color:var(--head)}
   .sq{padding:16px 18px}
   .mail{padding:18px 22px}
 }
-@media (prefers-reduced-motion:reduce){
-  *,*::before,*::after{animation:none!important;transition:none!important}
-  .ans .ln{width:var(--w)}.ans .refs span,.term .out{opacity:1;transform:none}
-}
+.motion-off *,.motion-off *::before,.motion-off *::after{animation:none!important;transition:none!important}
+.motion-off .ans .ln{width:var(--w)}.motion-off .ans .refs span,.motion-off .term .out{opacity:1;transform:none}
+.mbtn{font:500 10px var(--fm);letter-spacing:.14em;text-transform:uppercase;color:var(--body);background:none;border:1px solid var(--line);border-radius:99px;padding:8px 12px;cursor:pointer;transition:color .2s,border-color .2s}
+.mbtn:hover{color:var(--teal);border-color:var(--teal)}
+.mbtn b{color:var(--teal);font-weight:500}
+.no-gl .orb-img{animation:orbspin 60s linear infinite}
+@keyframes orbspin{to{rotate:360deg}}
 </style>
 </head>
 <body>
@@ -413,6 +422,7 @@ footer a{color:var(--head)}
       <a href="#projects"><i>03</i>Projects</a>
       <a href="#contact"><i>04</i>Contact</a>
       <span class="pill"><span class="dot"></span>Available for collaboration</span>
+      <button class="mbtn" id="mbtn" aria-label="Change animation level">Motion <b id="mlabel">full</b></button>
     </div>
   </nav>
 </header>
@@ -653,10 +663,12 @@ footer a{color:var(--head)}
 <script>
 const $ = (s, r = document) => r.querySelector(s), $$ = (s, r = document) => [...r.querySelectorAll(s)];
 const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
-const RM = matchMedia("(prefers-reduced-motion: reduce)").matches;
+const RM = window.MOTION === "off", LITE = window.MOTION === "lite";
 const FINE = matchMedia("(pointer: fine)").matches;
 const HAS_GSAP = !!(window.gsap && window.ScrollTrigger);
 $("#yr").textContent = new Date().getFullYear();
+$("#mlabel").textContent = window.MOTION;
+$("#mbtn").onclick = () => { const next = { full: "lite", lite: "off", off: "full" }[window.MOTION]; try { localStorage.setItem("motion", next); } catch {} location.reload(); };
 
 /* ---------- data ---------- */
 const TECH = ["Python","PyTorch","LangGraph","OpenAI Realtime","Gemini Live","FastAPI","ChromaDB","Pinecone","Deepgram","ElevenLabs","LiveKit","Twilio","Whisper","Docker","PostgreSQL","MCP"];
@@ -878,7 +890,7 @@ function bindTilt(root = document) {
     el.addEventListener("pointermove", e => {
       const r = el.getBoundingClientRect(), x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height;
       el.style.setProperty("--mx", x * 100 + "%"); el.style.setProperty("--my", y * 100 + "%");
-      if (!RM && FINE) el.style.transform = `perspective(900px) rotateX(${(.5 - y) * 6}deg) rotateY(${(x - .5) * 6}deg)`;
+      if (!RM && !LITE && FINE) el.style.transform = `perspective(900px) rotateX(${(.5 - y) * 6}deg) rotateY(${(x - .5) * 6}deg)`;
     });
     el.addEventListener("pointerleave", () => el.style.transform = "");
   });
@@ -905,7 +917,7 @@ $("#prev").onclick = () => prodStep(-1); $("#next").onclick = () => prodStep(1);
 
 /* ---------- boot + motion ---------- */
 const boot = $("#boot");
-if (RM || !HAS_GSAP) boot.remove();
+if (RM || LITE || !HAS_GSAP) { boot.remove(); if (HAS_GSAP && !RM) intro(); }
 else {
   const MODS = ["voice-agent","stt.stream","llm.router","tts.stream","citerag.retriever","vector.index","reranker","cyclone.cnn-lstm","orbit.map","ui.shell"];
   const log = $("#bootlog"); let i = 0;
@@ -926,7 +938,7 @@ function intro() {
 
 if (HAS_GSAP && !RM) {
   gsap.registerPlugin(ScrollTrigger);
-  if (window.Lenis) {
+  if (window.Lenis && !LITE) {
     window.lenis = new Lenis({ lerp: .09 });
     lenis.on("scroll", ScrollTrigger.update);
     gsap.ticker.add(t => lenis.raf(t * 1000));
@@ -957,8 +969,8 @@ if (HAS_GSAP && !RM) {
   gsap.fromTo($$(".sw", story), { opacity: .15 }, { opacity: 1, stagger: .05, ease: "none", scrollTrigger: { trigger: story, start: "top 80%", end: "bottom 55%", scrub: true } });
   gsap.from(".stat .bar", { scaleX: 0, transformOrigin: "left", duration: 1.4, ease: "power3.out", stagger: .15, scrollTrigger: { trigger: ".stats", start: "top 80%" } });
   /* hero parallax */
-  gsap.to("#orbwrap", { yPercent: 18, scale: .85, opacity: .3, ease: "none", scrollTrigger: { trigger: "#hero", start: "top top", end: "bottom top", scrub: true } });
-  gsap.to("#headline", { yPercent: -25, opacity: .2, ease: "none", scrollTrigger: { trigger: "#hero", start: "top top", end: "bottom top", scrub: true } });
+  if (!LITE) gsap.to("#orbwrap", { yPercent: 18, scale: .85, opacity: .3, ease: "none", scrollTrigger: { trigger: "#hero", start: "top top", end: "bottom top", scrub: true } });
+  if (!LITE) gsap.to("#headline", { yPercent: -25, opacity: .2, ease: "none", scrollTrigger: { trigger: "#hero", start: "top top", end: "bottom top", scrub: true } });
   /* pipeline wire draws with scroll, nodes light as the signal reaches them */
   ScrollTrigger.create({ trigger: pipe, start: "top 78%", end: "bottom 45%", scrub: .6, onUpdate: s => setWire(s.progress) });
   gsap.from("#rail", { scaleY: 0, ease: "none", scrollTrigger: { trigger: ".tl", start: "top 70%", end: "bottom 60%", scrub: true } });
@@ -968,7 +980,7 @@ if (HAS_GSAP && !RM) {
   gsap.from(".lock,.est,.hudtxt,.temp", { opacity: 0, y: 16, duration: .7, stagger: .15, scrollTrigger: { trigger: "#scope", start: "top 45%" } });
   gsap.from(".ring", { scale: .3, opacity: 0, duration: 1.4, ease: "expo.out", stagger: .12, scrollTrigger: { trigger: "#orbit", start: "top 75%" } });
   /* production: pinned horizontal scroll on wide screens */
-  gsap.matchMedia().add("(min-width: 1101px)", () => {
+  if (!LITE) gsap.matchMedia().add("(min-width: 1101px)", () => {
     vp.style.overflow = "visible";
     const dist = () => Math.max(0, track.scrollWidth - innerWidth);
     const tw = gsap.to(track, { x: () => -dist(), ease: "none" });
@@ -979,7 +991,7 @@ if (HAS_GSAP && !RM) {
 }
 
 /* ---------- cursor + magnetic ---------- */
-if (FINE && !RM) {
+if (FINE && !RM && !LITE) {
   const dot = $(".cur"), ring = $(".cur-ring");
   let mx = -100, my = -100, rx = mx, ry = my;
   addEventListener("pointermove", e => { mx = e.clientX; my = e.clientY; dot.style.transform = `translate(${mx - 3}px,${my - 3}px)`; }, { passive: true });
@@ -998,8 +1010,10 @@ addEventListener("resize", layoutWire);
 <script type="module">
 /* Voice orb: a particle sphere that breathes like someone talking. Falls back to a still image without WebGL. */
 const canvas = document.getElementById("orb"), wrap = document.getElementById("orbwrap");
-const RM = matchMedia("(prefers-reduced-motion: reduce)").matches;
+const RM = window.MOTION === "off";
 let THREE = null, renderer = null;
+const speech = t => Math.max(0, Math.sin(t * .55)) ** .6 * (.35 + .65 * Math.abs(Math.sin(t * 7.3) * Math.sin(t * 3.1 + 1)));
+const ticks = document.getElementById("ticks");
 try { THREE = await import("https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.min.js"); renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true }); }
 catch { wrap.classList.add("no-gl"); }
 if (renderer) {
@@ -1045,8 +1059,7 @@ if (renderer) {
   addEventListener("pointermove", e => { tx = (e.clientY / innerHeight - .5) * .6; ty = (e.clientX / innerWidth - .5) * .8; }, { passive: true });
   new IntersectionObserver(([e]) => visible = e.isIntersecting).observe(wrap);
   /* fake speech envelope: syllables inside phrases, with pauses between */
-  const speech = t => Math.max(0, Math.sin(t * .55)) ** .6 * (.35 + .65 * Math.abs(Math.sin(t * 7.3) * Math.sin(t * 3.1 + 1)));
-  const ticks = document.getElementById("ticks"), clock = new THREE.Clock();
+  const clock = new THREE.Clock();
   let spin = 0;
   const frame = () => {
     requestAnimationFrame(frame);
@@ -1061,6 +1074,16 @@ if (renderer) {
     renderer.render(scene, cam);
   };
   if (RM) { uni.uT.value = 1.3; renderer.render(scene, cam); } else frame();
+} else if (!RM) {
+  /* no WebGL: still image, but it breathes with the same fake voice and the rings keep moving */
+  const img = wrap.querySelector(".orb-img"); let amp = 0;
+  const loop = now => {
+    requestAnimationFrame(loop);
+    const t = now / 1000; amp += (speech(t) - amp) * .2; window.voiceAmp = amp;
+    img.style.scale = 1 + amp * .07; img.style.filter = `brightness(${1 + amp * .5}) saturate(${1 + amp * .4})`;
+    ticks.style.transform = `rotate(${t * 4}deg)`; window.drawWave?.(t);
+  };
+  requestAnimationFrame(loop);
 }
 </script>
 </body>
